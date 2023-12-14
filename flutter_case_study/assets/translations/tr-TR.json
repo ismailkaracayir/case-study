@@ -1,0 +1,11 @@
+{
+    "login_screen" : "Giriş Ekranı",
+    "email_text_field": "E-mail",
+    "pass_text_field": "Şifre",
+    "password_isEmpty_text": "Şifre boş bırakılamaz",
+    "password_isValid_text": "Şifre 5 karakterden fazla olmalıdır",
+    "email_isEmpty_text": "Eposta boş bırakılamaz",
+    "email_isValid_text": "Geçerli bir email giriniz",
+    "login_btn" :"Giriş"
+
+}

@@ -1,0 +1,14 @@
+ {
+    "login_screen" : "Login Screen",
+    "email_text_field": "Email",
+    "pass_text_field": "Password",
+    "password_isEmpty_text": "Password is required",
+    "password_isValid_text": "Password must be at least 6 characters long",
+    "email_isEmpty_text": "Email is required",
+    "email_isValid_text": "Please enter a valid email",
+    "login_btn" :"Login"
+
+
+
+
+}
