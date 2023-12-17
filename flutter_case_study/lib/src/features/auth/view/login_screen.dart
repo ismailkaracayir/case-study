@@ -32,64 +32,61 @@ class _LoginScreenState extends State<LoginScreen> {
         title: Center(child: Text(LocaleKeys.login_screen.tr())),
       ),
       body: Form(
-          key: key,
-          child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Consumer(
-                builder: (context, ref, child) {
-                  final authController = ref.watch(authControllerProvider);
+        key: key,
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Consumer(
+            builder: (context, ref, child) {
+              final authNotifier = ref.watch(authProvider.notifier);
 
-                  if (authController.isLoading) {
-                    return const CircularProgressIndicator();
-                  } else {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AppTextFormField(
-                            controller: emailController,
-                            label: LocaleKeys.email_text_field.tr(),
-                            keyboardType: TextInputType.emailAddress,
-                            obscureText: false,
-                            validator: (p0) {
-                              if (p0!.isEmpty) {
-                                return LocaleKeys.email_isEmpty_text.tr();
-                              } else if (!p0.contains('@')) {
-                                return LocaleKeys.email_isValid_text.tr();
-                              }
-                              return null;
-                            }),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.05,
-                        ),
-                        AppTextFormField(
-                          controller: passwordController,
-                          label: LocaleKeys.pass_text_field.tr(),
-                          keyboardType: TextInputType.visiblePassword,
-                          obscureText: false,
-                          validator: (p0) {
-                            if (p0!.isEmpty) {
-                              return LocaleKeys.password_isEmpty_text.tr();
-                            } else if (p0.length < 6) {
-                              return LocaleKeys.password_isValid_text.tr();
-                            }
-                            return null;
-                          },
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.05,
-                        ),
-                        OrangeButton(
-                            onPressed: () {
-                              ref.read(authControllerProvider.notifier).login(
-                                  emailController.text,
-                                  passwordController.text);
-                            },
-                            text: LocaleKeys.login_btn.tr())
-                      ],
-                    );
-                  }
-                },
-              ))),
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AppTextFormField(
+                      controller: emailController,
+                      label: LocaleKeys.email_text_field.tr(),
+                      keyboardType: TextInputType.emailAddress,
+                      obscureText: false,
+                      validator: (p0) {
+                        if (p0!.isEmpty) {
+                          return LocaleKeys.email_isEmpty_text.tr();
+                        } else if (!p0.contains('@')) {
+                          return LocaleKeys.email_isValid_text.tr();
+                        }
+                        return null;
+                      }),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.05,
+                  ),
+                  AppTextFormField(
+                    controller: passwordController,
+                    label: LocaleKeys.pass_text_field.tr(),
+                    keyboardType: TextInputType.visiblePassword,
+                    obscureText: false,
+                    validator: (p0) {
+                      if (p0!.isEmpty) {
+                        return LocaleKeys.password_isEmpty_text.tr();
+                      } else if (p0.length < 6) {
+                        return LocaleKeys.password_isValid_text.tr();
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.05,
+                  ),
+                  OrangeButton(
+                      onPressed: () {
+                        authNotifier.login(emailController.text,
+                            passwordController.text, context);
+                      },
+                      text: LocaleKeys.login_btn.tr())
+                ],
+              );
+            },
+          ),
+        ),
+      ),
     );
   }
 }

@@ -38,9 +38,9 @@ dependencies:
   shared_preferences: ^2.2.2
   riverpod: ^2.4.9
   flutter_riverpod: ^2.4.9
-  dio: ^5.4.0
   dartz: ^0.10.1
   easy_localization: ^3.0.3
+  http: ^1.1.0
 
 dev_dependencies:
   flutter_test:

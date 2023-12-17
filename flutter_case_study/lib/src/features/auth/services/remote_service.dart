@@ -1,35 +1,28 @@
-import 'package:dio/dio.dart';
+import 'dart:convert';
+
+import 'package:flutter_case_study/src/features/auth/services/local_service.dart';
+import 'package:http/http.dart';
 
 class RemoteAuthService {
-  final dio = Dio();
+  final LocaleAuthService localeAuthService = LocaleAuthService();
 
   Future<Map<String, String>> login(String email, String pass) async {
     try {
-      Map<String, dynamic> params = {
+      Response response =
+          await post(Uri.parse("https://reqres.in/api/login"), body: {
         "email": email,
         "password": pass,
-      };
-      final response = await dio.request(
-        "https://reqres.in/api/login",
-        data: params,
-        options: Options(method: 'POST'),
-      );
-      print('service giriş');
+      });
 
       if (response.statusCode == 200) {
-        print('service başarılı');
-
-        Map<String, String> token = response.data;
-        return token;
+        Map<String, dynamic> token = jsonDecode(response.body);
+          localeAuthService.saveToken(token['token']);
+        return token.cast<String, String>();
       } else {
         throw Exception('An error occurred');
       }
-    } on DioException catch (e) {
-      print('service hatalı');
-
-      throw Exception(e.response!.data['error']);
     } catch (e) {
-      throw Exception("Couldn't login. Is the device online?");
+      throw Exception('An error occurred');
     }
   }
 }
